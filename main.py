@@ -60,19 +60,19 @@ class AttendanceRankingView(View):
         self.add_item(Button(label="📅 누적 출석 랭킹", style=discord.ButtonStyle.secondary, custom_id="total_rank"))
 
 LEVELS = {
-    1: {"emoji": "🪴", "name": "궁전문 앞 새싹", "desc": "드디어 궁전문을 똑똑 두드리는 우리 새싹 공듀🌱\n아직은 설렘과 긴장이 함께 찾아오지만,\n햇살이 좋은 날엔 ‘나도 뭔가 해낼 수 있을 것 같아’\n가만히 마음속 다짐이 싹 트기 시작해요."},
-    2: {"emoji": "🏰", "name": "왕실 입문생", "desc": "한 걸음 더 내딛으면, 새로운 세계가 펼쳐져요!\n궁전 안에서 길을 잃기도 하고,\n간식 코너에서 몰래 쉬다 들키기도 하지만🐻‍❄️\n조금씩 나만의 리듬으로 살아가는 연습이 시작돼요.\n‘이게 바로 갓생의 첫걸음?’"},
-    3: {"emoji": "🎀", "name": "공듀 준비생", "desc": "조금 더 익숙해진 궁전 생활,\n공듀 선배들의 응원도 받고,\n‘오늘은 전보다 1분이라도 더 집중해볼까?’\n조그만 성취에도 스스로 토닥여주는\n진짜 갓생 연습생이 되어가는 중이에요🐹"},
-    4: {"emoji": "🍼", "name": "초보 공듀", "desc": "이제는 티아라도 살짝 써보고,\n도서관 입장도 조금은 자연스러워졌어요.\n가끔 집중이 풀리더라도,\n오늘 하루 나를 칭찬하며\n조용히 다시 책상 앞에 앉아요✨\n작은 습관들이 하나씩 쌓여가요."},
-    5: {"emoji": "🍀", "name": "레어 공듀", "desc": "레어템처럼 불시에 터지는 집중력!\n자기 효능감이 잔뜩 쌓이기 시작한 레어 공듀!\n오늘은 어제보다 더 멋진 나를 발견해요.\n딴짓도, 공부도, 휴식도 다 내 갓생 루틴의 일부!"},
-    6: {"emoji": "🔮", "name": "에픽 공듀", "desc": "이젠 모두가 아는 에픽 공듀!\n계획표도 더욱 멋있어지고\n나만의 리듬이 더 단단해지는 시기를 보내고 있어요❤️‍🔥\n이 작은 성장들이 모여,\n나만의 갓생을 완성해간답니다."},
-    7: {"emoji": "🌈", "name": "레전더리 공듀", "desc": "집중력이 슬금슬금 전설이 되고 있어요!\n공부하다 멈췄을 때,\n‘이 정도면 나 진짜 레전드 아냐?’ 하는\n괜한 뿌듯함이 마음을 채워줘요.\n더 이상 남과 비교하지 않고,\n매일의 기록을 즐겁게 채워가는 중🌟"},
-    8: {"emoji": "🦄", "name": "비스트 공듀", "desc": "집중 비스트 모드, 오늘도 ON!\n가끔은 흔들리더라도,\n작은 루틴을 지켜내는 나를 대견히 바라봐요🦄\n공부도, 웃음도, 간식도\n모두 ‘나만의 갓생’이 되어가는 중!"},
-    9: {"emoji": "💎", "name": "공주(진)", "desc": "이제 모두가 인정하는 진짜 공주!\n따뜻한 응원과 작은 배려로,\n서버 친구들에게 힘을 주는 존재가 되었어요👸\n공부, 성장, 휴식 모두가\n나만의 소중한 루틴이란 걸 알게 됐어요."},
-    10: {"emoji": "👑", "name": "QUEEN", "desc": "궁전의 왕좌에 앉은 우리 왕국의 QUEEN!\n어떤 하루도 멋지게 완성할 수 있다는 걸\n작은 실천들이 알려줬어요💖\n이제는 모두의 롤모델이 되어,\n다른 공듀들에게도 ‘나만의 갓생’을 응원할 수 있답니다.\n오늘도 함께라서 참 든든해요!"},
+    1: {"emoji": "🪓", "name": "초입의 견습 공주", "desc": "막 도착한 초원. 녹슨 도끼 하나로 길을 연다.\n첫걸음은 작아도 전진은 전진이다."},
+    2: {"emoji": "🌲", "name": "숲길 정찰수 공주", "desc": "어둑한 숲, 흔적을 좇는다.\n작은 소란에도 흐트러지지 않는 집중을 배운다."},
+    3: {"emoji": "🗺️", "name": "협곡 사냥꾼 공주", "desc": "바람 갈라지는 절벽길. 우회냐 직진이냐를 가른다.\n판단력이 자라기 시작한다."},
+    4: {"emoji": "🛡️", "name": "성문 파수 공주", "desc": "폐허 성곽의 외벽을 지킨다.\n습관이라는 방패로 잡념을 튕겨낸다."},
+    5: {"emoji": "🔥", "name": "화염 지대 개척자 공주", "desc": "열기 속에서도 호흡을 고른다.\n딱 1분 더— 그 작은 추가가 길을 만든다."},
+    6: {"emoji": "🧭", "name": "미로 해독가 공주", "desc": "길은 꼬였고 시간은 적다.\n기록과 루틴으로 미로의 규칙을 찾는다."},
+    7: {"emoji": "⚔️", "name": "밤의 결투자 공주", "desc": "지치지만 칼은 무뎌지지 않는다.\n멈출 타이밍과 밀어붙일 타이밍을 배운다."},
+    8: {"emoji": "🧗", "name": "검은 탑 등반가 공주", "desc": "구출 대상의 신호가 잡힌다.\n실수는 장비 점검의 신호—다시 고쳐 묶는다."},
+    9: {"emoji": "🐉", "name": "용의 문지기 공주", "desc": "최후의 문, 마지막 시험.\n두려움은 있다. 그러나 굴복은 없다."},
+    10: {"emoji": "🏹", "name": "해방의 전설 공주", "desc": "사슬이 끊어지고 동료가 돌아온다.\n이제는 내가 후발대를 이끄는 길잡이다."},
 }
 LEVEL_THRESHOLDS = [0, 200, 600, 1500, 3000, 5000, 7500, 10000, 14000, 18500, 25000]
-TRACKED_VOICE_CHANNELS = ["🎥｜캠스터디", "📖｜1인실 (A)", "📖｜1인실 (B)", "📓｜도서관", "🌆｜워크스페이스"]
+TRACKED_VOICE_CHANNELS = ["🎥｜캠스터디", "📖｜1인실-a", "📖｜1인실-b", "📓｜도서관", "🌆｜워크스페이스"]
 RANKING_CHANNEL_ID = 1416358160930832485 # 혜빈 테스트
 HONOR_CHANNEL_ID = 1411234254519799908 # 혜빈 테스트 테스트 안 넣음.
 MYINFO_CHANNEL_ID = 1416358187568988190 # 혜빈 테스트
@@ -95,7 +95,7 @@ async def send_levelup_embed(member, new_level):
     data = LEVELS[new_level]
     embed = discord.Embed(
         title=f"{data['emoji']} 레벨업! {data['name']} 달성",
-        description=(f"{member.mention} 공듀님, {data['name']}에 도달했어요!\n\n{data['desc']}"),
+        description=(f"{member.mention} 공주님, {data['name']}에 도달했어요!\n\n{data['desc']}"),
         color=discord.Color.purple()
     )
     footer = get_embed_footer(member, datetime.now(timezone('Asia/Seoul')))
@@ -125,7 +125,7 @@ async def create_or_update_user_info(member):
     now = datetime.now(timezone('Asia/Seoul'))
     embed = discord.Embed(
         title=f"{member.display_name}님의 내정보",
-        description=(f"{member.mention} 공듀님의 최신 정보예요.\n변동이 있을 때마다 자동으로 업데이트됩니다! 😊"),
+        description=(f"{member.mention} 공주님의 최신 정보예요.\n변동이 있을 때마다 자동으로 업데이트됩니다! 😊"),
         color=member.color
     )
     embed.add_field(name="👑 레벨", value=f"{leveldata['emoji']} Lv.{level} {leveldata['name']}", inline=False)
@@ -260,7 +260,7 @@ async def check_and_kick(member: discord.Member):
             msg = await study_channel.fetch_message(session['msg_id'])
             embed = msg.embeds[0]
             embed.title = "🚫 캠스터디 규칙 위반"
-            embed.description = f"{member.mention} 공듀님, 10분 내에 카메라를 켜지 않아 채널에서 이동되었어요."
+            embed.description = f"{member.mention} 공주님, 10분 내에 카메라를 켜지 않아 채널에서 이동되었어요."
             embed.color = discord.Color.red()
             await msg.edit(embed=embed)
         await member.move_to(None, reason="캠스터디 10분 내 카메라 미사용")
@@ -283,7 +283,7 @@ async def on_voice_state_update(member, before, after):
         footer = get_embed_footer(member, now_kst)
         if after_channel_name == CAM_STUDY_CHANNEL:
             embed = discord.Embed(title="📸 캠스터디 입장!", color=member.color)
-            embed.description = (f"{member.mention} 공듀님, 캠스터디에 오신 것을 환영해요!\n\n"
+            embed.description = (f"{member.mention} 공주님, 캠스터디에 오신 것을 환영해요!\n\n"
                                f"**10분 내에 카메라나 화면 공유를 켜주세요.**\n"
                                f"규칙을 지키지 않으면 자동으로 채널에서 내보내져요! 😥")
             embed.set_footer(text=footer["text"], icon_url=footer["icon_url"])
@@ -291,8 +291,8 @@ async def on_voice_state_update(member, before, after):
             await db.start_study_session(user_id, now_kst, msg.id)
             bot.loop.create_task(check_and_kick(member))
         else:
-            embed = discord.Embed(title="🎀 공듀 스터디룸 입장 🎀", color=member.color)
-            embed.description = (f"{member.mention} 공듀님이 도서관에 나타났어요!\n"
+            embed = discord.Embed(title="🎀 공주 스터디룸 입장 🎀", color=member.color)
+            embed.description = (f"{member.mention} 공주님이 도서관에 나타났어요!\n 용사님을 구하러 가볼까요?\n"
                                f"오늘도 집중모드 발동✨\n공부 시작 시간: {now_kst.strftime('%H:%M:%S')}")
             embed.set_footer(text=footer["text"], icon_url=footer["icon_url"])
             msg = await study_channel.send(embed=embed)
@@ -305,7 +305,7 @@ async def on_voice_state_update(member, before, after):
         try: msg = await study_channel.fetch_message(session['msg_id'])
         except Exception: msg = None
         if duration_minutes < 10:
-            embed = discord.Embed(title="⏰ 집중 실패! (10분 미만)", description=f"{member.mention} 공듀님, 10분 미만은 집중 인정 불가에요!", color=member.color)
+            embed = discord.Embed(title="⏰ 집중 실패! (10분 미만)", description=f"{member.mention} 공주님, 10분 미만은 집중 인정 불가에요!", color=member.color)
             embed.set_footer(text=get_embed_footer(member, end_time)["text"], icon_url=get_embed_footer(member, end_time)["icon_url"])
             if msg: await msg.edit(embed=embed)
             return
@@ -318,11 +318,13 @@ async def on_voice_state_update(member, before, after):
         today_total = await db.get_today_study_time(user_id)
         h, m = divmod(duration_int, 60)
         time_str = f"{h}시간 {m}분" if h else f"{m}분"
-        embed = discord.Embed(title=f"{leveldata['emoji']} 집중 완료! 공듀 퇴장 ✨", description=f"{member.mention} 공듀님 오늘도 대단해요!\n공부박스 도착🎁", color=member.color)
-        embed.add_field(name="⏳ 공부한 시간", value=f"**{time_str}**", inline=False)
-        embed.add_field(name="🌹 획득 Exp", value=f"**{exp_gained} Exp**{' (🔥 2배 보너스!)' if multiplier > 1 else ''}", inline=True)
-        embed.add_field(name="👑 오늘 누적", value=f"**{today_total}분**", inline=True)
-        embed.add_field(name="🏅 현재 레벨", value=f"{leveldata['emoji']} Lv.{level} {leveldata['name']}", inline=False)
+        embed = discord.Embed(title=f"{leveldata['emoji']} 집중 완료! 공주 퇴장 ✨", description=f"{member.mention} 공주님 오늘도 대단해요!\n공부박스 도착🎁", color=member.color)
+        
+        embed.add_field(name="⏳ 임무 시간", value=f"**{time_str}**", inline=False)
+        embed.add_field(name="🎖️ 획득 Exp", value=f"**{exp_gained} Exp**{' (🔥 2배 보너스)' if multiplier > 1 else ''}", inline=True)
+        embed.add_field(name="📘 오늘 누적", value=f"**{today_total}분**", inline=True)
+        embed.add_field(name="🏷️ 현재 직위", value=f"{leveldata['emoji']} Lv.{level} {leveldata['name']}", inline=False)
+        
         embed.set_footer(text=get_embed_footer(member, end_time)["text"], icon_url=get_embed_footer(member, end_time)["icon_url"])
         if msg: await msg.edit(embed=embed)
         else: await study_channel.send(embed=embed)
@@ -337,13 +339,13 @@ async def on_voice_state_update(member, before, after):
             if is_cam_on and current_multiplier == 1:
                 await db.update_study_multiplier(user_id, CAM_BONUS_MULTIPLIER)
                 embed.title = "열공 모드 ON 🔥"
-                embed.description = f"{member.mention} 공듀님, 집중하는 모습이 멋져요!\n**지금부터 경험치가 2배로 적용됩니다!**"
+                embed.description = f"{member.mention} 공주님, 집중하는 모습이 멋져요!\n**지금부터 경험치가 2배로 적용됩니다!**"
                 embed.color = discord.Color.green()
                 await msg.edit(embed=embed)
             elif not is_cam_on and current_multiplier > 1:
                 await db.update_study_multiplier(user_id, 1)
                 embed.title = "📸 캠스터디 (일반 모드)"
-                embed.description = f"{member.mention} 공듀님, 휴식이 필요하신가요?\n카메라나 화면 공유를 다시 켜면 경험치 2배가 적용돼요!"
+                embed.description = f"{member.mention} 공주님, 휴식이 필요하신가요?\n카메라나 화면 공유를 다시 켜면 경험치 2배가 적용돼요!"
                 embed.color = member.color
                 await msg.edit(embed=embed)
         except Exception as e:
@@ -373,7 +375,7 @@ async def on_message(message):
             except Exception:
                 pass
             embed = discord.Embed(title=f"{leveldata['emoji']} 기상 인증 완료!", 
-                                  description=f"{message.author.mention} 공듀님, 기상 인증 완료! 오늘 하루 멋지게 시작해요 🌞 (+{exp_gained} Exp)", 
+                                  description=f"{message.author.mention} 공주님, 기상 인증 완료! 오늘 하루 멋지게 시작해요 🌞 (+{exp_gained} Exp)", 
                                   color=message.author.color)
             embed.set_image(url=photo_url)
             embed.add_field(name="🎁 현재 레벨", value=f"{leveldata['emoji']} Lv.{level} {leveldata['name']}")
@@ -395,7 +397,7 @@ async def checkin(ctx):
     embed = discord.Embed(color=ctx.author.color)
     if not saved_db:
         embed.title = "👑 출석 실패"
-        embed.description = f"{ctx.author.mention} 공듀님, 오늘은 이미 출석하셨어요! 🐣"
+        embed.description = f"{ctx.author.mention} 공주님, 오늘은 이미 출석하셨어요! 🐣"
     else:
         exp_gained = 50
         level, exp_after = await add_exp_and_check_level(ctx.author, exp_gained)
@@ -435,13 +437,13 @@ async def wakeup(ctx):
     is_first_wakeup = await db.save_wakeup(user_id, ctx.author.display_name) 
     footer = get_embed_footer(ctx.author, now)
     if not is_first_wakeup:
-        embed = discord.Embed(title="☀️ 기상 실패", description=f"{ctx.author.mention} 공듀님, 오늘은 이미 기상 인증했어요! ☀️", color=ctx.author.color)
+        embed = discord.Embed(title="☀️ 기상 실패", description=f"{ctx.author.mention} 공주님, 오늘은 이미 기상 인증했어요! ☀️", color=ctx.author.color)
         embed.set_footer(text=footer["text"], icon_url=footer["icon_url"])
         await ctx.send(embed=embed)
         return
     async with aiohttp.ClientSession() as session:
         await append_to_sheet(session, "wakeup", [user_id, now.strftime("%Y-%m-%d"), ctx.author.display_name])
-    embed = discord.Embed(title="📷 기상 인증 요청", description=(f"{ctx.author.mention} 공듀님, 기상 인증 사진을 올려주세요!\n카메라로 아침 인증샷(책상, 시계 등) 첨부 필수 📸"), color=ctx.author.color)
+    embed = discord.Embed(title="📷 기상 인증 요청", description=(f"{ctx.author.mention} 공주님, 기상 인증 사진을 올려주세요!\n카메라로 아침 인증샷(책상, 시계 등) 첨부 필수 📸"), color=ctx.author.color)
     embed.set_footer(text=footer["text"], icon_url=footer["icon_url"])
     msg = await ctx.send(embed=embed)
     await db.add_wakeup_pending(user_id, msg.id)
@@ -492,7 +494,7 @@ async def show_records(ctx):
 async def command_list(ctx):
     now = datetime.now(timezone('Asia/Seoul'))
     footer = get_embed_footer(ctx.author, now)
-    embed = discord.Embed(title="👑 공듀봇명령어 모음", description="각 채널에서 명령어를 입력해보세요!\n아래 채널명 클릭 시 바로 이동됩니다.", color=ctx.author.color)
+    embed = discord.Embed(title="👑 공주봇명령어 모음", description="각 채널에서 명령어를 입력해보세요!\n아래 채널명 클릭 시 바로 이동됩니다.", color=ctx.author.color)
     embed.add_field(name=f"🍀 출석 (`!출석`)", value=f"매일 <#{ATTENDANCE_CHANNEL_ID}> 채널에서 출석하고 경험치를 얻으세요.", inline=False)
     embed.add_field(name=f"🌅 기상 (`!기상`)", value=f"<#{WAKEUP_CHANNEL_ID}> 채널에서 기상 인증 사진을 올려주세요.", inline=False)
     embed.add_field(name="📊 통계 (`!통계`)", value="나의 월간/주간/전체 통계를 한 번에 확인합니다.", inline=False)
