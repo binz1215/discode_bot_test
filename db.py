@@ -280,3 +280,17 @@ async def get_total_attendance_rankings(limit: int = 10):
     params = (limit,) if is_postgres else ()
     rows = await db_execute(query, params, fetch="all")
     return [{'user_id': r[0], 'nickname': r[1] or '알 수 없는 유저', 'count': r[2]} for r in rows]
+
+# 칭호부여
+async def get_top_users_by_exp_full(limit: int = 10):
+    placeholder = "%s" if is_postgres else "?"
+    query = f"""
+        SELECT user_id, nickname, exp
+        FROM users
+        ORDER BY exp DESC
+        LIMIT {placeholder if is_postgres else limit}
+    """
+    params = (limit,) if is_postgres else ()
+    rows = await db_execute(query, params, fetch="all")
+    # user_id는 문자열로 쓰자 (Discord ID와 비교 편의)
+    return [{"user_id": str(r[0]), "nickname": r[1], "exp": r[2]} for r in rows]

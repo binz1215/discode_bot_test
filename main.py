@@ -11,6 +11,7 @@ import aiohttp
 import asyncio
 import logging
 from dotenv import load_dotenv; load_dotenv()
+import re
 
 # ... (상단 설정은 기존과 동일)
 TOKEN = os.getenv("DISCORD_TOKEN")
@@ -81,6 +82,38 @@ WAKEUP_CHANNEL_ID = 1416358210184413196 # 혜빈 테스트
 ranking_message_id = None
 user_info_channel_msgs = {}
 
+# 칭호
+TOP_N_TITLED = 10  # 칭호 붙일 랭킹 범위
+TITLE_MAP = {
+    1: "👸「대장 공주」",
+    2: "🐉「오른팔 공주」",
+    3: "💪🏻「왼팔 공주」",
+}
+DEFAULT_TITLE = "🐰「공주는 성장 중!」"  # 4~TOP_N_TITLED 기본 칭호
+
+# 우리 봇이 붙인 칭호만 안전하게 지우기 위한 패턴 (희귀한 전각 브래킷 사용)
+# 정확히 현재 4종 이모지만 허용 (💪🏻는 2코드포인트라 개별 매치가 아니라 그룹으로)
+TITLE_PATTERN = re.compile(r"\s*(?:(?:👸|🐉|🐰|💪🏻)\s*)?「[^」]{1,20}」\s*$")
+
+def strip_title(nick: str | None) -> str:
+    if not nick:
+        return ""
+    return TITLE_PATTERN.sub("", nick).strip()
+
+def make_titled_nick(base: str, title: str, max_len: int = 32) -> str:
+    # 뒤에 붙이는 형식: "<원래닉> <칭호>"
+    cand = f"{base} {title}".strip()
+    if len(cand) <= max_len:
+        return cand
+    # 길이 초과 시 base를 자른다
+    remain = max_len - len(title) - 1  # 1은 공백
+    if remain <= 0:
+        # 제목만이라도 넣을지 말지는 정책 선택. 여기서는 제목만.
+        return title[:max_len]
+    return f"{base[:remain]} {title}"
+
+
+# 본문
 def get_level_from_exp(exp):
     for i in range(1, len(LEVEL_THRESHOLDS)):
         if exp < LEVEL_THRESHOLDS[i]: return i
@@ -576,3 +609,77 @@ if TOKEN:
     bot.run(TOKEN)
 else:
     logger.critical("DISCORD_TOKEN 환경변수가 설정되지 않았습니다.")
+
+# 칭호 결정
+async def apply_rank_titles(guild: discord.Guild):
+    try:
+        top = await db.get_top_users_by_exp_full(TOP_N_TITLED)  # [{user_id,nickname,exp}, ...]
+    except Exception as e:
+        logger.error(f"랭킹 조회 실패: {e}")
+        return
+
+    # user_id → (rank, title) 매핑
+    rank_map: dict[str, tuple[int, str]] = {}
+    for idx, row in enumerate(top, start=1):
+        title = TITLE_MAP.get(idx, DEFAULT_TITLE)
+        rank_map[row["user_id"]] = (idx, title)
+
+    changed = 0
+    for member in guild.members:
+        # 봇/탈퇴유사계정/닉변불가 계층은 스킵
+        if member.bot:
+            continue
+        # 권한/계층 문제 회피: 실패 시 무시
+        try:
+            cur = member.nick or member.name
+            base = strip_title(cur)
+
+            # 랭킹 밖이면 칭호 제거만
+            if str(member.id) not in rank_map:
+                if base != cur:  # 칭호가 있었던 경우만 수정
+                    new_nick = base or member.name
+                    if new_nick != cur:
+                        await member.edit(nick=new_nick, reason="랭킹 칭호 제거")
+                        changed += 1
+                continue
+
+            # 랭킹 안이면 칭호 부여
+            _, title = rank_map[str(member.id)]
+            new_nick = make_titled_nick(base or member.name, title)
+            if new_nick != cur:
+                await member.edit(nick=new_nick, reason="랭킹 칭호 적용")
+                changed += 1
+
+        except discord.Forbidden:
+            # 권한/역할 계층 문제. 로그만.
+            logger.warning(f"닉네임 변경 불가(권한/계층): {member} ({member.id})")
+        except discord.HTTPException as e:
+            logger.warning(f"닉네임 변경 실패: {member} ({member.id}) - {e}")
+
+    logger.info(f"랭킹 칭호 적용 완료: {changed}명 변경")
+
+
+# 자동 주기 적용
+@tasks.loop(minutes=30)
+async def refresh_titles_task():
+    await bot.wait_until_ready()
+    for guild in bot.guilds:
+        await apply_rank_titles(guild)
+
+@refresh_titles_task.before_loop
+async def _wait_bot():
+    await bot.wait_until_ready()
+
+# on_ready에서 시작
+@bot.event
+async def on_ready():
+    if not refresh_titles_task.is_running():
+        refresh_titles_task.start()
+    logger.info(f"Logged in as {bot.user} (ID: {bot.user.id})")
+
+# 관리자 수동 명령
+@bot.tree.command(name="칭호적용", description="랭킹 기반 칭호를 닉네임에 반영합니다.")
+@app_commands.default_permissions(administrator=True)
+async def slash_apply_titles(interaction: discord.Interaction):
+    await apply_rank_titles(interaction.guild)
+    await interaction.response.send_message("✅ 랭킹 칭호 적용 완료", ephemeral=True)
